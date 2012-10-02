@@ -7,7 +7,12 @@ module Rack
     end
 
     def call(env)
-      response = @app.call(env)
+      if env["REQUEST_METHOD"] == "OPTIONS"
+        response = [200, {}, []]
+      else
+        response = @app.call(env)
+      end
+      
       if env["PATH_INFO"].match @path
         response[1]["Access-Control-Allow-Origin"] = @origin
         response[1]["Access-Control-Allow-Headers"] = 'X-Requested-With, Authorization, X-SproutCore-Version, Content-Type, Location'
@@ -15,6 +20,7 @@ module Rack
         response[1]['Access-Control-Request-Methods'] = '*'
         response[1]["Expires"] = '1278000'
       end
+    
       response
     end
   end
