@@ -15,9 +15,9 @@ module Rack
       
       if env["PATH_INFO"].match @path
         response[1]["Access-Control-Allow-Origin"] = @origin
-        response[1]["Access-Control-Allow-Headers"] = 'X-Requested-With, Authorization, X-SproutCore-Version, Content-Type, Location'
+        response[1]["Access-Control-Allow-Headers"] = 'X-Requested-With, Authorization, X-SproutCore-Version, Content-Type, Location, X-CSRF-Token'
         response[1]['Access-Control-Allow-Methods'] = 'INDEX, GET, POST, PUT, PATCH, DELETE'
-        response[1]['Access-Control-Request-Methods'] = '*'
+        response[1]['Access-Control-Request-Methods'] = '*']
         response[1]["Expires"] = '1278000'
       end
     
