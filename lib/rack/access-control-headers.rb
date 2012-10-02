@@ -10,8 +10,10 @@ module Rack
       response = @app.call(env)
       if env["PATH_INFO"].match @path
         response[1]["Access-Control-Allow-Origin"] = @origin
-        response[1]["Cache-Control"] = "public"
-        response[1]["Expires"] = (Time.now + (60*60*24*365*10)).httpdate
+        response[1]["Access-Control-Allow-Headers"] = 'X-Requested-With, Authorization, X-SproutCore-Version, Content-Type, Location'
+        response[1]['Access-Control-Allow-Methods'] = 'INDEX, GET, POST, PUT, PATCH, DELETE'
+        response[1]['Access-Control-Request-Methods'] = '*'
+        response[1]["Expires"] = '1278000'
       end
       response
     end
